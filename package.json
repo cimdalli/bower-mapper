@@ -1,6 +1,6 @@
 {
   "name": "bower-mapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Grunt task to (concatenate and) copy bower components depends on map file",
   "main": "index.js",
   "scripts": {
