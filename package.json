@@ -1,0 +1,25 @@
+{
+  "name": "bower-mapper",
+  "version": "1.0.0",
+  "description": "Grunt task to (concatenate and) copy bower components depends on map file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:cimdalli/bower-mapper.git"
+  },
+  "keywords": [
+    "bower",
+    "grunt",
+    "copy",
+    "concat",
+    "map"
+  ],
+  "author": "Okan Çetin",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^0.23.1"
+  }
+}
