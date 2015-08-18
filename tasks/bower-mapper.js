@@ -47,9 +47,12 @@ module.exports = function (grunt) {
         var result = [];
         switch (checkType(data)) {
             case "string":
-                result = [result]; break;
+                result = [data]; break;
             case "array":
-                result = data; break;
+                result = result.concat(data.map(function (element) {
+                    return selectObject(element);
+                })).join(",").split(",");
+                break;
             case "object":
                 for (var key in data) {
                     var value = data[key];
@@ -94,15 +97,12 @@ module.exports = function (grunt) {
             else if (Array.isArray(selector)) { // All selection operations need Array selector
                 var componentName = selector[0];
                 var selectedData = jsonSelector(json, selector); // First selection data
-                var arrayResult = [];
 
-                selectedData = selectObject(selectedData, useMin);
-
-                for (var index in selectedData) {
-                    var filePath = convertPath(componentName, selectedData[index]);
-                    arrayResult.push(filePath);
-                }
-                return arrayResult;
+                return selectObject(selectedData, useMin)
+                    .filter(function (selection) { return !!selection; })
+                    .map(function (selection) {
+                        return convertPath(componentName, selection);
+                    });
             }
             return undefined;
         }
