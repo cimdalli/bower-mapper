@@ -50,7 +50,7 @@ module.exports = function (grunt) {
                 result = [data]; break;
             case "array":
                 result = result.concat(data.map(function (element) {
-                    return selectObject(element);
+                    return selectObject(element, useMin);
                 })).join(",").split(",");
                 break;
             case "object":
