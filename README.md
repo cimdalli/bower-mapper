@@ -1,6 +1,6 @@
 # bower-mapper
 
-Grunt task to (concatenate and) copy bower components depends on map file
+> Grunt task to (concatenate and) copy bower components depends on map file
 
 ## Overview
 Most of bower components have their minified versions and resources (fonts, images etc.) in their file structure. To copy required files, you can define them in your grunt file but it may hard to handle. By that library, you can define a grunt task to select required libraries and resources as well as concatenation option.
@@ -25,7 +25,7 @@ You can define bower components and sub categories via mapper file.
 
 Simple "bower.mapper.json" file
 
-```json
+```js
 {
     "jquery": {
         "js": { "dist/jquery.js": "dist/jquery.min.js" }
@@ -53,14 +53,14 @@ There is 3 diffirent supported node type.
 ### Node types
 
 1. Object type
- 	```coffee
+ 	```js
 	{ "dist/jquery.js": "dist/jquery.min.js" }
     ```
     
 	In that format, key stands for path of original file and value for its minified version. All dependencies resolved by root key name and it should match to downloaded bower component name.
  
 2. String type
- 	```coffee
+ 	```js
     "angular": {
         "js": "angular.min.js"
     }
@@ -69,7 +69,7 @@ There is 3 diffirent supported node type.
 
 
 3. Array type
- 	```coffee
+ 	```js
     "fonts": [ "dist/fonts/glyphicons-halflings-regular.eot",
             	"dist/fonts/glyphicons-halflings-regular.ttf",
             	"dist/fonts/glyphicons-halflings-regular.woff" ]
@@ -81,7 +81,7 @@ There is 3 diffirent supported node type.
 ### Overview
 In your project's Gruntfile, add a section named `"bower-mapper"` to the data object passed into `grunt.initConfig()`.
 
-```coffee
+```js
 grunt.initConfig(
     'bower-mapper': {
          js: {
