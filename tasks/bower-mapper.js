@@ -108,6 +108,20 @@ module.exports = function (grunt) {
         }
     };
 
+    var mapSrcFile = function (cwd, componentPaths, filePath) {
+        var result = null;
+        componentPaths.every(function (componentPath) {
+            var currentPath = convertPath(cwd, componentPath, filePath);
+
+            if (!grunt.file.exists(currentPath)) {
+                grunt.log.warn('Source file "' + currentPath + '" not found.');
+            } else {
+                result = currentPath;
+                return false;
+            }
+        });
+        return result;
+    };
 
     grunt.registerMultiTask('bower-mapper', 'Concatenate or copy selected files that is defined in bower.mapper and configured in grunt task', function () {
 
@@ -117,7 +131,7 @@ module.exports = function (grunt) {
         var data = this.data;
 
         var mapperPath = checkOption("mapper", "bower.mapper.json", options);
-        var componentPath = checkOption("components", "bower_components", options);
+        var componentPath = convertArray(checkOption("components", "bower_components", options));
         var seperator = checkOption("seperator", ":", data, options);
         var cwd = checkOption("cwd", null, options);
         var dest = checkOption("dest", null, data);
@@ -147,15 +161,10 @@ module.exports = function (grunt) {
             });
 
             srcFiles = srcFiles
-                .map(function (filepath) {
-                    return convertPath(cwd, componentPath, filepath);
-                }).filter(function (filepath) {
-                    if (!grunt.file.exists(filepath)) {
-                        grunt.log.warn('Source file "' + filepath + '" not found.');
-                        return false;
-                    } else {
-                        return true;
-                    }
+                .map(function (filePath) {
+                    return mapSrcFile(cwd, componentPath, filePath);
+                }).filter(function (filePath) {
+                    return !!filePath;
                 });
 
             if (concat) {

@@ -76,6 +76,9 @@ There is 3 diffirent supported node type.
     ```
 	This format can be used for multi selection like font or other kind of resources (images, icons etc.)
 
+### Component types
+By default, `"bower-mapper"` uses **bower_components** directory to resolve resource however you can add **node_modules** directory to resolve also npm packages. Resolve order is same as declaration order.
+
 ## The "bower-mapper" task
 
 ### Overview
@@ -84,6 +87,10 @@ In your project's Gruntfile, add a section named `"bower-mapper"` to the data ob
 ```js
 grunt.initConfig(
     'bower-mapper': {
+        options: {
+                mapper: "bower.mapper.json",
+                components: ["bower_components", "node_modules"]
+        },
          js: {
              src: ["underscore", "jquery", "bootstrap", "angular", "angular-animate", "angular-route"],
              dest: "libs.js",
